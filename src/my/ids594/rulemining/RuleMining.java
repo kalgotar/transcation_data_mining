@@ -77,7 +77,7 @@ public class RuleMining {
 				throws IOException {
 			
 			String transaction = value.toString();
-			List<String> itemsets = getItemSets(transaction.split(","));
+			List<String> itemsets = getItemSets(transaction.split(" "));
 			
 			for(String itmset : itemsets){				
 				itemset.set(itmset.replaceAll(" ", ""));
@@ -107,7 +107,7 @@ public class RuleMining {
 	                	newList.add(items[j]);
 	                }
 	                
-	                if(j == n-1 && newList.size() > 0){
+	                if(j == n-1 && newList.size() > 0 && newList.size() < 4){
               		
 	                	itemsets.add(newList.toString());
 	                }
