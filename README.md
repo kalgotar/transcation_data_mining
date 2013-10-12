@@ -14,11 +14,11 @@ FrequentItemsetMapper -> FrequentItemsetPartitioner -> FrequentItemsetReducer ->
 ...
 
 #### Output
-{1} -> 2        0.6666667
+{1} -> 2   &nbsp;&nbsp; &nbsp;&nbsp;    0.6666667
 
-{1} -> 4         0.3333334
+{1} -> 4   &nbsp;&nbsp; &nbsp;&nbsp;     0.3333334
 
-{2,4} -> 1       0.5
+{2,4} -> 1  &nbsp;&nbsp;&nbsp;&nbsp;     0.5
 
 ...
 
