@@ -24,6 +24,6 @@ FrequentItemsetMapper -> FrequentItemsetPartitioner -> FrequentItemsetReducer ->
 
 #### Usage
 
-`$ bin/hadoop jar /home/pavan/Desktop/rulemining.jar my.ids594.rulemining.RuleMining /your_hdfspath/input/ /your_hdfspath/temp/ /your_hdfspath/output/'`
+`$ bin/hadoop jar /path/rulemining.jar my.ids594.rulemining.RuleMining /hdfspath/input/ /hdfspath/temp/ /hdfspath/output/'`
 
 
