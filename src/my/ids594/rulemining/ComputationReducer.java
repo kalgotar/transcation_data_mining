@@ -19,46 +19,46 @@ public class ComputationReducer extends MapReduceBase implements Reducer<Text, T
 	public void reduce(Text key, Iterator<Text> values, OutputCollector<Text, FloatWritable> output, Reporter reporter)
 		throws IOException {
 	
-	int keyCount = 0;
-	HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
+		int keyCount = 0;
+		HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
 	
-	String[] keyitems = key.toString().replace("[", "").replace("]", "").split(",");
+		String[] keyitems = key.toString().replace("[", "").replace("]", "").split(",");
 		      
-	while (values.hasNext()) {
+		while (values.hasNext()) {
 	
-		String val = values.next().toString();
-		String[] valuesplit = val.split(";");   //[1,2,3];0 OR 0;1
+			String val = values.next().toString();
+			String[] valuesplit = val.split(";");   //[1,2,3];0 OR 0;1
 		
-			if(valuesplit[0].equals("0")){	       			
-				keyCount = Integer.parseInt(valuesplit[1]);
-			}
-			else{
-				String[] parentItems = valuesplit[0].replace("[", "").replace("]", "").split(",");
-				hashMap.put(key + " -> " + getSeparateItem(parentItems,keyitems),  Integer.parseInt(valuesplit[1]));
-			}	       		
-	}
+				if(valuesplit[0].equals("0")){	       			
+					keyCount = Integer.parseInt(valuesplit[1]);
+				}
+				else{
+					String[] parentItems = valuesplit[0].replace("[", "").replace("]", "").split(",");
+					hashMap.put(key + " -> " + getSeparateItem(parentItems,keyitems),  Integer.parseInt(valuesplit[1]));
+				}	       		
+		}
 	
-	Iterator<String> iterator = hashMap.keySet().iterator();
+		Iterator<String> iterator = hashMap.keySet().iterator();
 	   
-	while(iterator.hasNext()){
-		String k = iterator.next().toString();
-		int v = hashMap.get(k);
+		while(iterator.hasNext()){
+			String k = iterator.next().toString();
+			int v = hashMap.get(k);
 		
-		output.collect(new Text(k.replace("[", "{").replace("]", "}")), new FloatWritable(v/(float)keyCount));
-	}
+			output.collect(new Text(k.replace("[", "{").replace("]", "}")), new FloatWritable(v/(float)keyCount));
+		}	
 	}
 	
 	private String getSeparateItem(String[] parentItems, String[] keyitems) {
 	
-	String item = null;
-	List<String> items = Arrays.asList(keyitems);
+		String item = null;
+		List<String> items = Arrays.asList(keyitems);
 	
-	for(String s : parentItems){
-		if(!items.contains(s)){
-			item = s;
-			break;
-		}
-	}				
-	return item;
+		for(String s : parentItems){
+			if(!items.contains(s)){
+				item = s;
+				break;
+			}
+		}				
+		return item;
 	}			
 }

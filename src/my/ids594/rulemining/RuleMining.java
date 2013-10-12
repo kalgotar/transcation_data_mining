@@ -16,15 +16,7 @@ import org.apache.hadoop.util.ToolRunner;
 public class RuleMining  extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
-		
-		//DEBUG
-		String[] testinput = new String[3];
-		testinput[0] = "/home/pavan/Desktop/input/file01space";
-		testinput[1] = "/home/pavan/Desktop/temp";
-		testinput[2] = "/home/pavan/Desktop/output";
-		
-		args = testinput;
-		
+				
 		int res = ToolRunner.run(new RuleMining(), args);
         System.exit(res);
 	}
@@ -42,29 +34,31 @@ public class RuleMining  extends Configured implements Tool {
 			
 			itemsetsJob.setMapperClass(FrequentItemsetMapper.class);
 		    itemsetsJob.setReducerClass(FrequentItemsetReducer.class);
-	
+		    itemsetsJob.setPartitionerClass(FrequentItemsetPartitioner.class);
+		    
+		    itemsetsJob.setNumReduceTasks(3); //Each for itemsets of size 1, 2 and 3 
+		    
 		    itemsetsJob.setInputFormat(TextInputFormat.class);
 		    itemsetsJob.setOutputFormat(TextOutputFormat.class);
 		    FileInputFormat.setInputPaths(itemsetsJob, new Path(arg0[0]));
 		    FileOutputFormat.setOutputPath(itemsetsJob, new Path(arg0[1]));
 	    
-		    JobConf conf2 = new JobConf(RuleMining.class);
-			conf2.setJobName("Association rules confidence computation");
+		    JobConf computationJob = new JobConf(RuleMining.class);
+			computationJob.setJobName("Association rules confidence computation");
 
-			conf2.setOutputKeyClass(Text.class);
-		    conf2.setOutputValueClass(Text.class);
+			computationJob.setOutputKeyClass(Text.class);
+		    computationJob.setOutputValueClass(Text.class);
 		    
-		    conf2.setMapperClass(ComputationMapper.class);
-		    conf2.setReducerClass(ComputationReducer.class);
+		    computationJob.setMapperClass(ComputationMapper.class);
+		    computationJob.setReducerClass(ComputationReducer.class);
 		    
-		    conf2.setInputFormat(TextInputFormat.class);
-		    conf2.setOutputFormat(TextOutputFormat.class);
-		    FileInputFormat.setInputPaths(conf2, new Path(arg0[1]));
-		    FileOutputFormat.setOutputPath(conf2, new Path(arg0[2]));
-		    
-		    
+		    computationJob.setInputFormat(TextInputFormat.class);
+		    computationJob.setOutputFormat(TextOutputFormat.class);
+		    FileInputFormat.setInputPaths(computationJob, new Path(arg0[1]));
+		    FileOutputFormat.setOutputPath(computationJob, new Path(arg0[2]));
+		    		    
 			JobClient.runJob(itemsetsJob);
-			JobClient.runJob(conf2);			
+			JobClient.runJob(computationJob);			
 			
 		} catch (Exception e) {
 			
