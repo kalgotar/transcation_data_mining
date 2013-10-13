@@ -5,19 +5,25 @@ Association rule mining using MapReduce framework to identify and compute confid
 FrequentItemsetMapper -> FrequentItemsetPartitioner -> FrequentItemsetReducer -> ComputationMapper -> ComputationReducer
 
 #### Input
-1 2 5 4 6 7
+1 2 4 6 7
+
 2 3
+
 2 4 5
+
 ...
 
 #### Output
-{1} -> 2        0.6666667
-{1} -> 4        0.3333334
-{2,4} -> 1      0.5
+{1} -> 2   &nbsp;&nbsp; &nbsp;&nbsp;    0.6666667
+
+{1} -> 4   &nbsp;&nbsp; &nbsp;&nbsp;     0.3333334
+
+{2,4} -> 1  &nbsp;&nbsp;&nbsp;&nbsp;     0.5
+
 ...
 
 #### Usage
 
-'$ bin/hadoop jar /home/pavan/Desktop/rulemining.jar my.ids594.rulemining.RuleMining /your_hdfspath/input/ /your_hdfspath/temp/ /your_hdfspath/output/'
+`$ bin/hadoop jar /path/rulemining.jar my.ids594.rulemining.RuleMining /hdfspath/input/ /hdfspath/temp/ /hdfspath/output/`
 
 
