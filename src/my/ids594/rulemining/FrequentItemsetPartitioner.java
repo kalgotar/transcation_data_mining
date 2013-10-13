@@ -26,6 +26,5 @@ public class FrequentItemsetPartitioner implements Partitioner<Text, IntWritable
 
 	@Override
 	public void configure(JobConf arg0) {
-				
 	}
 }
